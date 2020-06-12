@@ -1,0 +1,23 @@
+[package]
+name = "ruspiro-mmu"
+authors = ["André Borrmann <pspwizard@gmx.de>"]
+version = "0.1.0" # remember to update html_root_url
+description = """
+Functions to use and configure the MemoryManagementUnit (MMU) of the Raspberry Pi
+"""
+license = "Apache-2.0"
+repository = "https://github.com/RusPiRo/ruspiro-mmu/tree/v0.1.0"
+documentation = "https://docs.rs/ruspiro-mmu/0.1.0"
+readme = "README.md"
+keywords = ["RusPiRo", "baremetal", "mmu", "raspberrypi"]
+categories = ["no-std", "embedded"]
+edition = "2018"
+links = "ruspiro_mmu"
+
+[lib]
+
+[dependencies]
+ruspiro-register = "0.4"
+ruspiro-console = "0.3"
+
+[features]
