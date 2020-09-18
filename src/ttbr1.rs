@@ -105,7 +105,6 @@ pub unsafe fn setup_translation_tables(core: u32) -> *const u64 {
         // happens and a virtual address is required to be mapped to a physical one with specific memory
         // attributes. As the block entries are all invalid at the beginning any memory access would lead to a access
         // fault
-
         llvm_asm!("dsb   ishst");
     }
 
@@ -146,9 +145,9 @@ pub unsafe fn maintain_pages(origin: *mut u8, _size: usize, attributes: u64) -> 
         // once the table has been updated we need to invalidate this entry
         let entry_addr = entry as *const u64 as usize;
         llvm_asm!("dsb   ishst
-                   dsb   ish
-                   isb
-                   dc civac, $0"::"r"(entry_addr)::"volatile");
+                dsb   ish
+                isb
+                dc civac, $0"::"r"(entry_addr)::"volatile");
         // calculate the virtual address for this entry based on the current block we are using
         let mut va = 0xFFFF_FFFF_FFFF_FFFF - (((512 - idx) << 21) - 1);
         va |= origin as usize & 0x1F_FFFF;

@@ -7,7 +7,7 @@
 #![doc(html_root_url = "https://docs.rs/ruspiro-mmu/||VERSION||")]
 #![cfg_attr(not(any(test, doctest)), no_std)]
 #![feature(llvm_asm)]
-
+#![cfg(target_arch = "aarch64")]
 //! # RusPiRo MMU API
 //!
 //! This crate provide the API to configure and maintain the Raspberry Pi Memory Management Unit. On Raspberry Pi a 
