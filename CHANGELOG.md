@@ -1,4 +1,7 @@
 # Changelog
-## :carrot: v0.1.0
+
+## :apple: v0.1.0
+
 - ### :bulb: Features
-    - Initial release
+
+  - Initial release
