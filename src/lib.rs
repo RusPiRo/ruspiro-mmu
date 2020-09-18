@@ -15,12 +15,15 @@
 //!
 
 use ruspiro_arch_aarch64::register::currentel;
+use ruspiro_register::{register_field, register_field_values};
 
 mod config;
 mod el1;
 mod el2;
 mod ttbr0;
 mod ttbr1;
+mod macros;
+pub use config::{TABLE, BLOCK};
 
 /// Initialize the MMU. This configures an initial 1:1 mapping accross the whole available
 /// memory of the Raspberry Pi. Only the memory region from 0x3F00_0000 to 0x4002_0000 is configured

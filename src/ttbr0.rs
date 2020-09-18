@@ -12,7 +12,7 @@
 
 use core::ptr::write_volatile;
 
-use super::MmuConfig;
+use super::{MmuConfig, config::{TABLE, BLOCK}};
 
 /// level 1 translation table, each entry covering 1GB of memory
 /// level 2 translation table, each entry covering 2MB of memory
@@ -102,25 +102,26 @@ pub unsafe fn setup_translation_tables(
         // that contains more granular config
         write_volatile(
             &mut MMU_CFG.ttlb_lvl1[0] as *mut u64,
-            0x1 << 63 | (level2_addr_1 as u64) | 0b11,
+            (TABLE::NS::SET | TABLE::TYPE::VALID).raw_value() | (level2_addr_1 as u64)
         );
         write_volatile(
             &mut MMU_CFG.ttlb_lvl1[1] as *mut u64,
-            0x1 << 63 | (level2_addr_2 as u64) | 0b11,
+            (TABLE::NS::SET | TABLE::TYPE::VALID).raw_value() | (level2_addr_2 as u64)
         );
 
         // the entries in level 2 (covering 2MB each) contain the specific memory attributes for this memory area
-        // first entries up to a initial fixed address covering 2Mb are "normal" memory
+        // first entries up to an initial fixed address covering 2Mb are "normal" memory
         for i in 0..4 {
             // 1:1 memory mapping with it's attributes
             write_volatile(
                 &mut MMU_CFG.ttlb_lvl2[i],
-                1 << 63 // NS flag
-                | (i as u64) << 21 // | 0x710 
-                | 1 << 10 // access flag
-                | 0b11 << 8 // shareable flag (inner shareable)
-                | 0x4 << 2 // MAIR 4 -> NORMAL memory
-                | 0b01,
+                (
+                    BLOCK::NS::SET
+                    | BLOCK::AF::SET
+                    | BLOCK::SH::INNER
+                    | BLOCK::MEMATTR::MAIR4
+                    | BLOCK::TYPE::VALID
+                ).raw_value() | (i as u64) << 21
             ); // block entry
         }
 
@@ -131,12 +132,12 @@ pub unsafe fn setup_translation_tables(
             // 1:1 memory mapping with it's attributes
             write_volatile(
                 &mut MMU_CFG.ttlb_lvl2[i],
-                1 << 63 // NS flag
-                | (i as u64) << 21 // | 0x710 
-                | 1 << 10 // access flag
-                | 0b11 << 8 // shareable flag (inner shareable)
-                | 0x3 << 2 // MAIR 3 -> Non-Cacheable memory
-                | 0b01,
+                (
+                    BLOCK::AF::SET
+                    | BLOCK::SH::INNER
+                    | BLOCK::MEMATTR::MAIR3
+                    | BLOCK::TYPE::VALID
+                ).raw_value() | (i as u64) << 21
             ); // block entry
         }
 
@@ -145,11 +146,12 @@ pub unsafe fn setup_translation_tables(
             // 1:1 memory mapping with it's attributes
             write_volatile(
                 &mut MMU_CFG.ttlb_lvl2[i],
-                1 << 63 // NS flag
-                | (i as u64) << 21 // | 0x400 
-                |  1 << 10 // access flag
-                | 0x0 << 2 // MAIR 0 -> DEVICE memory
-                | 0b01,
+                (
+                    BLOCK::AF::SET
+                    | BLOCK::SH::INNER
+                    | BLOCK::MEMATTR::MAIR0
+                    | BLOCK::TYPE::VALID
+                ).raw_value() | (i as u64) << 21
             ); // block entry
         }
 

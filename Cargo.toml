@@ -17,17 +17,19 @@ links = "ruspiro_mmu"
 exclude = [".travis.yml", "Makefile.toml"]
 
 [badges]
-travis-ci = { repository = "RusPiRo/ruspiro-mmio-register", branch = "release" }
+travis-ci = { repository = "RusPiRo/ruspiro-mmu", branch = "release" }
 maintenance = { status = "actively-developed" }
-is-it-maintained-open-issues = { repository = "RusPiRo/ruspiro-mmio-register" }
+is-it-maintained-open-issues = { repository = "RusPiRo/ruspiro-mmu" }
 
 [lib]
 
 [dependencies]
 ruspiro-arch-aarch64 = "0.1"
+ruspiro-register = "0.5"
 
 [features]
 ruspiro_pi3 = [ ]
 
 [patch.crates-io]
 ruspiro-arch-aarch64 = { git = "https://github.com/RusPiRo/ruspiro-arch-aarch64.git", branch = "master" }
+ruspiro-register = { git = "https://github.com/RusPiRo/ruspiro-register.git", branch = "master" }

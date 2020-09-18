@@ -12,7 +12,7 @@
 
 use core::ptr::write_volatile;
 
-use super::MmuConfig;
+use super::{MmuConfig, config::TABLE};
 
 /// level 1 translation table, each entry covering 1GB of memory
 /// level 2 translation table, each entry covering 2MB of memory
@@ -98,7 +98,7 @@ pub unsafe fn setup_translation_tables(core: u32) -> *const u64 {
         let level2_addr = &MMU_CFG.ttlb_lvl2[0] as *const u64;
         write_volatile(
             &mut MMU_CFG.ttlb_lvl1[511] as *mut u64,
-            0x1 << 63 | (level2_addr as u64) | 0b11,
+            (TABLE::NS::SET | TABLE::TYPE::VALID).raw_value() | (level2_addr as u64),
         );
 
         // we will not maintain any block entry at the beginning as those are maintained when memory mapping
