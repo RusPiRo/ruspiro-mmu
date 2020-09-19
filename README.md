@@ -24,17 +24,22 @@ With the MMU configured and active a physical memory region can be mapped to a n
 use ruspiro_mmu::*;
 
 fn main() {
+    // just an arbitrary address for demonstration purposes
     let phys_address = 0xDEADBEEF as *mut u8;
+    // the virtual address is of type *mut u8
     let virtual_address = unsafe {
         map_memory(phys_address, 1024,
-            ( BLOCK::AF::SET
-            | BLOCK::SH::INNER
-            | BLOCK::MEMATTR::MAIR3
+            ( TTLB_BLOCKPAGE::AF::SET
+            | TTLB_BLOCKPAGE::SH::INNER
+            | TTLB_BLOCKPAGE::MEMATTR::MAIR3
+            | TTLB_BLOCKPAGE::TYPE::BLOCK
             ).raw_value()
         )
     };
 }
 ```
+
+Please note that the current virtual memory mapping is implemented on *block level* only. This means the smallest mapped memory region is 2MB in size regardless of the size given to the `map_memory` function. Therefore the memory attributes passed to the mapping requires to be a `BLOCK` entry. Passing the direct TTLB flags to the memory map function is error prone and will be replaced with proper pre-defined constants to reflect the memeory attribute settings and combinations that are useful.
 
 ## License
 

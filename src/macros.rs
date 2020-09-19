@@ -1,6 +1,6 @@
 /***********************************************************************************************************************
  * Copyright (c) 2020 by the authors
- * 
+ *
  * Author: André Borrmann <pspwizard@gmx.de>
  * License: Apache License 2.0 / MIT
  **********************************************************************************************************************/
@@ -32,6 +32,11 @@ macro_rules! define_tlb_entry {
                             #[allow(unused_variables, dead_code)]
                             pub const fn with_value(value: u64) -> RegisterFieldValue<u64> {
                                 RegisterFieldValue::<u64>::new($field, value)
+                            }
+                            #[inline]
+                            #[allow(unused_variables, dead_code)]
+                            pub const fn from_raw(value: u64) -> RegisterFieldValue<u64> {
+                                RegisterFieldValue::<u64>::from_raw($field, value)
                             }
                             $(
                                 $crate::register_field_values!($field, u64, $($($fvdoc)*, $enum = $value),*);

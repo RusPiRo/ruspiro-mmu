@@ -1,6 +1,6 @@
 /***********************************************************************************************************************
  * Copyright (c) 2020 by the authors
- * 
+ *
  * Author: André Borrmann <pspwizard@gmx.de>
  * License: Apache License 2.0 / MIT
  **********************************************************************************************************************/
@@ -11,7 +11,7 @@
 
 //! # RusPiRo MMU API
 //!
-//! This crate provide the API to configure and maintain the Raspberry Pi Memory Management Unit. On Raspberry Pi a 
+//! This crate provide the API to configure and maintain the Raspberry Pi Memory Management Unit. On Raspberry Pi a
 //! configured and active MMU is a prerequisit to use any atomic operations.
 //!
 
@@ -21,10 +21,10 @@ use ruspiro_register::{register_field, register_field_values};
 mod config;
 mod el1;
 mod el2;
+mod macros;
 mod ttbr0;
 mod ttbr1;
-mod macros;
-pub use config::{TABLE, BLOCK};
+pub use config::TTLB_BLOCKPAGE;
 
 /// Initialize the MMU. This configures an initial 1:1 mapping accross the whole available
 /// memory of the Raspberry Pi. Only the memory region from 0x3F00_0000 to 0x4002_0000 is configured
