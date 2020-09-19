@@ -8,8 +8,10 @@
 //! # MMU Exception Level 1
 //!
 
-use ruspiro_arch_aarch64::instructions::{isb, nop};
-use ruspiro_arch_aarch64::register::el1::{mair_el1, sctlr_el1, tcr_el1, ttbr0_el1, ttbr1_el1};
+use ruspiro_arch_aarch64::{
+    instructions::{isb, nop},
+    register::el1::{mair_el1, sctlr_el1, tcr_el1, ttbr0_el1, ttbr1_el1},
+};
 
 pub fn enable_mmu(ttbr0_addr: u64, ttbr1_addr: u64) {
     // configure the MAIR (memory attribute) variations we will support

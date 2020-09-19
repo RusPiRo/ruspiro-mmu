@@ -60,7 +60,7 @@
 //!  MemAttr | Stage 1 memory attributes - index into MAIR_ELx register
 
 use super::define_tlb_entry;
-use ruspiro_register::{RegisterField, RegisterFieldValue};
+use ruspiro_arch_aarch64::{RegisterField, RegisterFieldValue};
 
 pub const SECTION_SIZE: usize = 0x20_0000; // 2MB section size
 pub const SECTION_MASK: usize = SECTION_SIZE - 1;

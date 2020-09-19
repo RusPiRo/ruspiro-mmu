@@ -15,8 +15,7 @@
 //! configured and active MMU is a prerequisit to use any atomic operations.
 //!
 
-use ruspiro_arch_aarch64::register::currentel;
-use ruspiro_register::{register_field, register_field_values};
+use ruspiro_arch_aarch64::{register::currentel, register_field, register_field_values};
 
 mod config;
 mod el1;

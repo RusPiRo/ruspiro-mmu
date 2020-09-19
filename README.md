@@ -2,7 +2,7 @@
 
 The crate provides the API to configure and maintain the Raspberry Pi Memory Management Unit (MMU). It allows to maintain the EL2 and EL1 configuration settings.
 
-[![Travis-CI Status](https://api.travis-ci.org/RusPiRo/ruspiro-mmu.svg?branch=release)](https://travis-ci.org/RusPiRo/ruspiro-mmu)
+[![Travis-CI Status](https://api.travis-ci.com/RusPiRo/ruspiro-mmu.svg?branch=release)](https://travis-ci.com/RusPiRo/ruspiro-mmu)
 [![Latest Version](https://img.shields.io/crates/v/ruspiro-mmu.svg)](https://crates.io/crates/ruspiro-mmu)
 [![Documentation](https://docs.rs/ruspiro-mmu/badge.svg)](https://docs.rs/ruspiro-mmu)
 [![License](https://img.shields.io/crates/l/ruspiro-mmu.svg)](https://github.com/RusPiRo/ruspiro-mmu#license)
