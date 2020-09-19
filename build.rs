@@ -1,11 +1,11 @@
 /***********************************************************************************************************************
- * Copyright (c) 2019 by the authors
+ * Copyright (c) 2020 by the authors
  *
- * Author: André Borrmann
- * License: Apache License 2.0
+ * Author: André Borrmann <pspwizard@gmx.de>
+ * License: Apache License 2.0 / MIT
  **********************************************************************************************************************/
 //! Build script, required as soon as the ``links`` attribute in ``Cargo.toml`` is used. This is to ensure only one
-//! ``ruspiro-mmu`` crate is ever linked into the final binary. 
+//! ``ruspiro-mmu`` crate is ever linked into the final binary.
 //!
 
 fn main() {}
