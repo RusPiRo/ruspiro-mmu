@@ -41,12 +41,14 @@ jobs:
     - stage: test
       name: "Run Doc Tests"
       install:
+        - rustc --print cfg
         # if we not build a PR we remove the patch of the dependencies to their github repo's
         - 'if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then sed -i "/{^\[patch\.crates-io\] /{:a;N;/\Z}/!ba};/^ruspiro-.*\(git\|path\).*/d" Cargo.toml; fi'
       script: cargo test --doc --features ruspiro_pi3
     - stage: test
       name: "Run Unit Tests"
       install:
+        - rustc --print cfg
         # if we not build a PR we remove the patch of the dependencies to their github repo's
         - 'if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then sed -i "/{^\[patch\.crates-io\] /{:a;N;/\Z}/!ba};/^ruspiro-.*\(git\|path\).*/d" Cargo.toml; fi'
       script: cargo test --tests --features ruspiro_pi3
