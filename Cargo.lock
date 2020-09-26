@@ -13,10 +13,10 @@ name = "ruspiro-mmu"
 version = "0.1.0"
 dependencies = [
  "ruspiro-arch-aarch64",
- "ruspiro-register",
 ]
 
 [[package]]
 name = "ruspiro-register"
 version = "0.5.0"
-source = "git+https://github.com/RusPiRo/ruspiro-register.git?branch=master#e4e0f8590193e880b53d7a92c3f4aba5e9980f1b"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bba969505aa1ef93912baecd72cc13d6df2899d3a0d36b612157625b3392e68f"

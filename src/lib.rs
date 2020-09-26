@@ -15,8 +15,7 @@
 //! configured and active MMU is a prerequisit to use any atomic operations.
 //!
 
-use ruspiro_arch_aarch64::register::currentel;
-use ruspiro_register::{register_field, register_field_values};
+use ruspiro_arch_aarch64::{register::currentel, register_field, register_field_values};
 
 mod config;
 mod el1;
@@ -30,7 +29,11 @@ pub use config::TTLB_BLOCKPAGE;
 /// memory of the Raspberry Pi. Only the memory region from 0x3F00_0000 to 0x4002_0000 is configured
 /// as device memory as this is the area the memory mapped peripherals and the core mailboxes are
 /// located at.
-pub fn initialize(core: u32, vc_mem_start: u32, vc_mem_size: u32) {
+///
+/// # Safety
+/// The call to this function is safe when executed as part of the initial setup of the Raspberry Pi kernel and is
+/// called only once for each core.
+pub unsafe fn initialize(core: u32, vc_mem_start: u32, vc_mem_size: u32) {
     // the mmu configuration depends on the exception level we are running in
     let el = currentel::read(currentel::EL::Field).value();
 
@@ -42,11 +45,10 @@ pub fn initialize(core: u32, vc_mem_start: u32, vc_mem_size: u32) {
     }
 
     // setup translation table entries
-    let ttlb0_base_addr =
-        unsafe { ttbr0::setup_translation_tables(core, vc_mem_start, vc_mem_size) as u64 };
+    let ttlb0_base_addr = ttbr0::setup_translation_tables(core, vc_mem_start, vc_mem_size) as u64;
     match el {
         1 => {
-            let ttlb1_base_addr = unsafe { ttbr1::setup_translation_tables(core) as u64 };
+            let ttlb1_base_addr = ttbr1::setup_translation_tables(core) as u64;
             el1::enable_mmu(ttlb0_base_addr, ttlb1_base_addr);
         }
         2 => el2::enable_mmu(ttlb0_base_addr),
@@ -56,6 +58,7 @@ pub fn initialize(core: u32, vc_mem_start: u32, vc_mem_size: u32) {
 
 /// Map a given address to a virtual address with the specified memory attributes.
 /// TODO: Memory attributes shall be a specific allowed set only - create a new type for this!
+///
 /// # Safety
 /// This is safe if the MMU has been configured already. Also the given raw pointer need to point to an
 /// address provided from a call to `alloc::alloc(...)` with at least `size` bytes and is aligned to the actual
