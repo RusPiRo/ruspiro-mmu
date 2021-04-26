@@ -1,5 +1,9 @@
 # Changelog
 
+## :peach: v0.1.1
+
+This maintenance release migrates the build pipeline to github actions.
+
 ## :apple: v0.1.0
 
 This is the initial release providing the core functionality to properly configure and activate the MMU. The initial configuration enables a 1:1 (physical to virtual) memory mapping for the lower memory reagion addressed by *TTBR0*. As the Raspberry PI uses a memory split between ARM and GPU the maintenance require the memory address and size the GPU memory starts. The memroy below this region is maintained as normal memory with active caching. The memroy region containing the memory mapped IO registered is maintained as device memory without caching.
