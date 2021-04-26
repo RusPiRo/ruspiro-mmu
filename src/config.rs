@@ -4,7 +4,7 @@
  * Author: André Borrmann <pspwizard@gmx.de>
  * License: Apache License 2.0 / MIT
  **********************************************************************************************************************/
- #![allow(dead_code)]
+#![allow(dead_code)]
 
 //! # MMU Configuration settings
 //!

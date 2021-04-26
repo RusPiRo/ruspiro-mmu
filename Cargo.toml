@@ -1,7 +1,7 @@
 [package]
 name = "ruspiro-mmu"
 authors = ["André Borrmann <pspwizard@gmx.de>"]
-version = "0.1.0" # remember to update html_root_url
+version = "0.1.1" # remember to update html_root_url
 description = """
 Functions to use and configure the MemoryManagementUnit (MMU) of the Raspberry Pi
 """
@@ -13,23 +13,17 @@ keywords = ["RusPiRo", "baremetal", "mmu", "raspberrypi"]
 categories = ["no-std", "embedded"]
 edition = "2018"
 links = "ruspiro_mmu"
-
-exclude = [".travis.yml", "Makefile.toml"]
+exclude = ["Makefile.toml", ".cargo/config.toml"]
 
 [badges]
-travis-ci = { repository = "RusPiRo/ruspiro-mmu", branch = "release" }
 maintenance = { status = "actively-developed" }
-is-it-maintained-open-issues = { repository = "RusPiRo/ruspiro-mmu" }
 
 [lib]
 
 [dependencies]
-ruspiro-arch-aarch64 = "0.1"
+ruspiro-arch-aarch64 = "~0.1.4"
 
 [features]
-ruspiro_pi3 = [ 
-    "ruspiro-arch-aarch64/ruspiro_pi3",
- ]
 
 [patch.crates-io]
-ruspiro-arch-aarch64 = { git = "https://github.com/RusPiRo/ruspiro-arch-aarch64.git", branch = "master" }
+ruspiro-arch-aarch64 = { git = "https://github.com/RusPiRo/ruspiro-arch-aarch64.git", branch = "development" }
